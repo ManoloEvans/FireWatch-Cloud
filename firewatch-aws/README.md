@@ -31,10 +31,10 @@ The AWS infrastructure for this project includes the following components:
 
 In deploying the AWS infrastructure for this project, the following is a high level overview of the steps needed to be taken:
 
-1. Create a thing in AWS IoT core for each Firewatch sensor.
-2. Set up an AWS IoT Core rule to route the data from the sensors to the S3 bucket.
-3. Configured AWS Glue to crawl the data in the S3 bucket and generate a table schema for the data.
-4. Used AWS Glue to create an ETL job to transform the data into a format that can be used by Amazon Athena.
+1. Create a cloudformation stack.
+2. Create a dynamoDBV2 Table. This version of DynamoDB will automatically create fields for the data that is being stored.
+3. Set up an AWS IoT Core rule to route the data from the sensors to the DynamoDB table.
+4. Create an AWS Athena workspace to create a query.
 5. Set up Amazon Athena to query the data in the S3 bucket and generate reports based on the data.
 6. Configured Grafana to connect to Amazon Athena and visualize the data in a dashboard.
 
