@@ -58,9 +58,7 @@ The AWS IoT Core is used to manage the Firewatch sensors and create rules. A Thi
 - Go to the Athena console and create a new workgroup.
 - Under Query results location, select the S3 bucket that you create
 - **Super important** that you add this tag: <code>GrafanaDataSource : true</code>
-- Now go to the Athena console and create a new query. The query should look something like this:
-
-<code>SELECT * FROM firewatchsensordata_v3</code>
+- Now go to the Athena console and create a new query. The query should look something like this: <code>SELECT * FROM firewatchsensordata_v3</code>
 
 ## Contributing
 
