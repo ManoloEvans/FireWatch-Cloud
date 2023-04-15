@@ -1,0 +1,33 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "athena:StartQueryExecution",
+                "athena:StopQueryExecution",
+                "athena:GetQueryExecution",
+                "athena:GetQueryResults"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*"
+            ],
+            "Resource": [
+                "arn:aws:s3::<UserIDHere>:accesspoint/*",
+                "arn:aws:s3:::*",
+                "arn:aws:s3:::*/*",
+                "arn:aws:s3:*:<UserIDHere>:storage-lens/*",
+                "arn:aws:s3:*:<UserIDHere>:job/*",
+                "arn:aws:s3-object-lambda:*:<UserIDHere>:accesspoint/*",
+                "arn:aws:s3:*:<UserIDHere>:accesspoint/*"
+            ]
+        }
+    ]
+}
