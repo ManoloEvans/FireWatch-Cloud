@@ -40,6 +40,12 @@ In deploying the AWS infrastructure for this project, the following is a high le
 7. Configured Grafana to connect to Amazon Athena and visualize the data in a dashboard.
 
 
+## AWS IAM Part 1
+
+The first thing you're going to need to do is create an administrator level IAM user. It is generally not recommended to use the root level account for everyday tasks or regular usage because of security concerns. The root account has unrestricted access to all resources and permissions within an AWS account. Using the root account for routine tasks could increase the risk of unauthorized access, accidental or intentional modification or deletion of important resources, or other security issues.
+
+Later on there in the readme there wil be an AWS IAM part 2 going over roles, policies, and permissions that you will need in order for everything to work.
+
 ## AWS IoT Core and DynamoDB
 
 The AWS IoT Core is used to manage the Firewatch sensors and create rules. A Thing should be automatically generated when a sensor is registered on the things network. The Thing should be named after the sensor's EUI. In the aws-iotcore folder, there is a file called "firewatch-aws-iot-core-rule.sql". This file contains the SQL statement that will query the topic of the sensor(in this case lorawan/#).
@@ -56,9 +62,39 @@ The AWS IoT Core is used to manage the Firewatch sensors and create rules. A Thi
 ## AWS Athena
 
 - Go to the Athena console and create a new workgroup.
-- Under Query results location, select the S3 bucket that you create
+- Under Query results location, select the S3 bucket that you created
 - **Super important** that you add this tag: <code>GrafanaDataSource : true</code>
 - Now go to the Athena console and create a new query. The query should look something like this: <code>SELECT * FROM firewatchsensordata_v3</code>
+
+## AWS Quicksight
+
+Quicksight is basically Amazon's version of a dashboard that helps with visualizing data. I experimented a bit with it but found that it is quite limited in its functionality. In the end I realized if I wanted to get more out of my data I would have to use a grafana dashboard.
+
+## AWS Managed Grafana
+
+AWS Managed Grafana links AWS services to grafana. There is no direct support for a DynamoDB table but thats why in this project I created an Athena workgroup to query the DynamoDB table, a neat and easy workaround. To set up a AWS Managed Grafana page and have it linked and querying from Athena follow these steps:
+
+- Go to the AWS Managed Grafana console and create a new workspace.
+- Under Authentication Access select the AWS IAM Identity Center option.
+- Personally I set the grafana alerting option on but this is optional.
+- I set the Network access to be public but this is also optional.
+- Under Data sources, select Amazon Athena.
+
+Now the Grafana dashboard should be created. But there are a few more steps before you can start creating panels and visualizing your data.
+
+## AWS IAM Part 2
+
+So now we're going to discuss the roles and policies that I personally have configured. Now this being my first experience with using AWS I'm sure there are better ways to do this but this is what I did and it worked for me.
+
+### Grafana IAM Roles and Policies
+
+First things you will need to create an IAM Identity User.
+
+- Go to the IAM Identity Center, not to be confused with the regular IAM console.
+- Create a new user filling out the name and email.
+- They will email you regarding completing the setup. Once you follow the setup rules you're IAM user will be created.
+
+In my IAM Console I have a role called "AmazonGrafanaServiceRole-" followed by some random characters. Inside the aws-iam folder there is a folder called "AmazonGrafanaServiceRole". This is contains the policies that I have attached to the role. These policies allow the Grafana workspace to query the Athena workgroup and read from the S3 Bucket. The policies I have inside the AmazonGrafanaServiceRole are super vital. I was getting an Amazon reads S3 error and it was because I didn't have the correct policies attached to the role.
 
 ## Contributing
 
