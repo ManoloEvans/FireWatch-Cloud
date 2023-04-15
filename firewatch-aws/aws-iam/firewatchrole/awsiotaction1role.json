@@ -3,6 +3,6 @@
     "Statement": {
         "Effect": "Allow",
         "Action": "dynamodb:PutItem",
-        "Resource": "arn:aws:dynamodb:eu-west-2:<UserIDHere>:table/FirewatchSensorData_v3"
+        "Resource": "arn:aws:dynamodb:eu-west-2:<UserIDHere>:table/<TableNameHere>"
     }
 }
