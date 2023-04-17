@@ -1,0 +1,15 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowSensorToWriteToDynamoDB",
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:PutItem"
+            ],
+            "Resource": [
+                "arn:aws:dynamodb:eu-west-2:<UserIDHere>:table/<TableNameHere>"
+            ]
+        }
+    ]
+}
