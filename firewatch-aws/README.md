@@ -31,13 +31,13 @@ The AWS infrastructure for this project includes the following components:
 
 In deploying the AWS infrastructure for this project, the following is a high level overview of the steps needed to be taken:
 
-1. Create an IAM User.
-2. Create a cloudformation stack.
-3. Set up an AWS IoT Core rule to route the data from the sensors to the DynamoDB table.
-4. Create a dynamoDBV2 Table. This version of DynamoDB will automatically create fields for the data that is being stored.
-5. Create an AWS Athena workspace to create a query.
-6. Set up Amazon Athena to query the data in the S3 bucket and generate reports based on the data.
-7. Configured Grafana to connect to Amazon Athena and visualize the data in a dashboard.
+- Create an IAM User.
+- Create a cloudformation stack.
+- Set up an AWS IoT Core rule to route the data from the sensors to the DynamoDB table.
+- Create a dynamoDBV2 Table. This version of DynamoDB will automatically create fields for the data that is being stored.
+- Create an AWS Athena workspace to create a query.
+- Set up Amazon Athena to query the data in the S3 bucket and generate reports based on the data.
+- Configured Grafana to connect to Amazon Athena and visualize the data in a dashboard.
 
 
 ## AWS IAM Part 1
@@ -95,6 +95,20 @@ First things you will need to create an IAM Identity User.
 - They will email you regarding completing the setup. Once you follow the setup rules you're IAM user will be created.
 
 In my IAM Console I have a role called "AmazonGrafanaServiceRole-" followed by some random characters. Inside the aws-iam folder there is a folder called "AmazonGrafanaServiceRole". This is contains the policies that I have attached to the role. These policies allow the Grafana workspace to query the Athena workgroup and read from the S3 Bucket. The policies I have inside the AmazonGrafanaServiceRole are super vital. I was getting an Amazon reads S3 error and it was because I didn't have the correct policies attached to the role.
+
+### IoT Core IAM Roles and Policies
+
+In the aws-iam/firewatchrole folder, there is a file called awsiotaction1role. This allows my firewatch role to put items into dynamodb tables. This is all I needed to give the IoT role the policies it needed for the scope of this project.
+
+There are other roles that were generated when you go through the cloudformation and a Thing is created in IoT Core. I won't go over these since it is a bit redundant, but I will put them into the aws-iam folder for reference.
+
+## IAM Roles and User Attached Policies
+
+Once again reminding you the reader here, that I am learning how to use AWS as we go along, so I would like to preface here that I know I am probably going overkill on the policies and roles. 
+
+Inside the aws-iam/UserPolicies folder I put all of the Policies that I have attached to my IAM user. Keep in mind that you may only have up to 10 policies attached directly to your user. If you need more than 10 policies attached to your user, you can create a group and attach the policies to the group. Then you can attach the group to your user.
+
+Inside the aws-iam folder I have also put all of the roles that I have created. Most of them were created when you create something using AWS so I have just put them there for reference.
 
 ## Contributing
 
