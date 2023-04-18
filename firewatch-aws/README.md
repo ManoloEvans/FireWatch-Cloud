@@ -2,6 +2,26 @@
 
 This repository contains the AWS infrastructure and code used for the Firewatch project.
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Pre-requisites](#pre-requisites)
+- [Components](#components)
+- [Overview](#overview)
+- [CloudFormation](#cloudformation)
+- [AWS IAM Part 1](#aws-iam-part-1)
+- [AWS IoT Core and DyanmoDB](#aws-iot-core-and-dynamodb)
+- [AWS S3 Buckets](#aws-s3-buckets)
+- [AWS Athena](#aws-athena)
+- [AWS QuickSight](#aws-quicksight)
+- [AWS Managed Grafana](#aws-managed-grafana)
+- [AWS IAM Part 2](#aws-iam-part-2)
+- [Grafana IAM Roles and Policies](#grafana-iam-roles-and-policies)
+- [IoT Core IAM Roles and Policies](#iot-core-iam-roles-and-policies)
+- [IAM Roles and User Attached Policies](#iam-roles-and-user-attached-policies)
+- [Conclusion](#conclusion)
+
+
 ## Introduction
 
 The Firewatch project is aimed at creating a prototype for a cluster of sensors in remote areas to detect wildfires. This repository contains the AWS infrastructure and code used to collect, store, and analyze data from the Firewatch sensors.
@@ -31,14 +51,17 @@ The AWS infrastructure for this project includes the following components:
 
 In deploying the AWS infrastructure for this project, the following is a high level overview of the steps needed to be taken:
 
-- Create an IAM User.
 - Create a cloudformation stack.
+- Create an IAM User.
 - Set up an AWS IoT Core rule to route the data from the sensors to the DynamoDB table.
 - Create a dynamoDBV2 Table. This version of DynamoDB will automatically create fields for the data that is being stored.
 - Create an AWS Athena workspace to create a query.
 - Set up Amazon Athena to query the data in the S3 bucket and generate reports based on the data.
 - Configured Grafana to connect to Amazon Athena and visualize the data in a dashboard.
 
+## CloudFormation
+
+The CloudFormation template is used to deploy the AWS infrastructure for this project. The template is located in the firewatch-aws/CloudFormation folder. Check the readme in the CloudFormation folder for more details.
 
 ## AWS IAM Part 1
 
@@ -110,15 +133,6 @@ Inside the aws-iam/UserPolicies folder I put all of the Policies that I have att
 
 Inside the aws-iam folder I have also put all of the roles that I have created. Most of them were created when you create something using AWS so I have just put them there for reference.
 
-## Contributing
+## Conclusion
 
-If you would like to contribute to this project, please follow the standard Git workflow:
-
-## Fork the repository.
-
-Create a new branch for your changes.
-Make your changes and commit them to your branch.
-Push your changes to your forked repository.
-Create a pull request to merge your changes into the main repository.
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+I hope this part of the guide was helpful to you. I know that I had a hard time finding a guide that was specific to my use case. I hope that this guide will help you in your journey to create a Firewatch sensor and use AWS to manage it. If you have any questions or comments please feel free to reach out to me.

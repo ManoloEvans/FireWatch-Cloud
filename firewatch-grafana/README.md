@@ -2,6 +2,20 @@
 
 This repository contains the details pertaining to the Grafana dashboard used in the FireWatch project.
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Pre-requisites](#pre-requisites)
+- [Overview](#overview)
+- [Configure IAM Identity as Administrator](#configure-iam-identity-as-administrator)
+- [Configure Grafana to select Athena as a data source](#configure-grafana-to-select-athena-as-a-data-source)
+- [Create a dashboard and panels](#create-a-dashboard-and-panels)
+- [Create a Heatmap](#create-a-heatmap)
+- [Gauges](#gauges)
+- [Time Series](#time-series)
+- [Clock](#clock)
+- [Conclusion](#conclusion)
+
 ## Introduction
 
 The Firewatch project is aimed at creating a prototype for a cluster of sensors in remote areas to detect wildfires. This repository contains the SQL queries, and settings used to set up the panels in Grafana.
@@ -89,3 +103,15 @@ I did the same for the other two fields. For Humidity I changed the unit to Humi
 ### Time Series
 
 I added a time series panel with the query found in the sql folder called <code>timeseriesquery.sql</code>. This query selects the the CO2 and the date by ascending date and time, very simple. On the top right I selected the time range for the last 6 hours. That was it for the Time Series.
+
+### Clock
+
+Theres not much to say here, I just added a clock panel. I changed the time zone to my local time zone. That was it.
+
+## Conclusion
+
+Here is what the image of the dash should look like:
+
+![Grafana Dashboard](../images/GrafanaDash.PNG)
+
+I hope this was helpful. I know it was a lot of steps but I tried to make it as easy as possible. If you have any questions, feel free to reach out to me. I will try to answer them as best as I can.
